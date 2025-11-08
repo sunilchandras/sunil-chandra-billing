@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sunil Chandra Billing</title>
+<meta name="theme-color" content="#0f9d58" />
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="data:application/manifest+json,{
+  &quot;name&quot;: &quot;Sunil Chandra Billing&quot;,
+  &quot;short_name&quot;: &quot;SCB Billing&quot;,
+  &quot;start_url&quot;: &quot;.&quot;,
+  &quot;display&quot;: &quot;standalone&quot;,
+  &quot;background_color&quot;: &quot;#0f9d58&quot;,
+  &quot;theme_color&quot;: &quot;#0f9d58&quot;
+}" />
+
+<style>
+:root{
+  --green:#0f9d58;
+  --accent:#06323f;
+  --muted:#6b7280;
+  --paper:#ffffff;
+  --bg:#f4fbf6;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  background:var(--bg);
+  font-family:Arial,Helvetica,sans-serif;
+}
+.app{
+  max-width:560px;
+  margin:14px auto;
+  padding:0 12px;
+}
+.card{
+  background:var(--paper);
+  border-radius:12px;
+  box-shadow:0 8px 26px rgba(0,0,0,.06);
+  overflow:hidden;
+}
+.hero{
+  position:relative;
+  background:var(--green);
+  color:#fff;
+  padding:14px 16px;
+}
+.hero h1{
+  margin:0;
+  font-size:20px;
+}
+.hero .sub{
+  font-size:12px;
+  opacity:.95;
+  margin-top:4px;
+}
+.content{
+  padding:14px;
+}
+label{
+  display:block;
+  font-size:13px;
+  color:var(--accent);
+  margin-top:10px;
+}
+input,select,textarea{
+  width:100%;
+  padding:10px;
+  border:1px solid #e6e9ef;
+  border-radius:8px;
+  margin-top:6px;
+  font-size:14px;
+}
+.row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.half{
+  flex:1;
+  min-width:180px;
+}
+.time{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+.time input{
+  width:56px;
+  text-align:center;
+}
+.btn{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:0;
+  background:var(--green);
+  color:#fff;
+  font-weight:700;
+  margin-top:12px;
+  cursor:pointer;
+}
+.ghost{
+  background:#fff;
+  color:var(--green);
+  border:1px solid #cfe9d8;
+}
+.result{
+  margin-top:10px;
+  padding:10px;
+  background:#f7fff4;
+  border:1px dashed #d8eedf;
+  border-radius:8px;
+}
+#printWrap{
+  position:relative;
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:10px;
+  padding:12px;
+  margin-top:12px;
+}
+#printWrap::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000"><rect width="1600" height="1000" fill="white"/><g transform="translate(180,300)" opacity="0.9"><rect x="0" y="260" width="1150" height="90" rx="14" fill="#d32f2f"/><rect x="60" y="190" width="400" height="110" rx="12" fill="#ef5350"/><rect x="460" y="215" width="200" height="80" rx="12" fill="#f4511e"/><circle cx="280" cy="380" r="70" fill="#1f2937"/><circle cx="760" cy="380" r="100" fill="#1f2937"/><rect x="880" y="260" width="300" height="90" rx="12" fill="#8d3a00"/><rect x="200" y="140" width="350" height="60" rx="10" fill="#ffd089" fill-opacity="0.9"/></g></svg>');
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:center;
+  opacity:.4;
+  pointer-events:none;
+  z-index:0;
+}
+.print-inner{
+  position:relative;
+  z-index:1;
+}
+.inv-title{
+  color:var(--green);
+  font-weight:800;
+  text-align:center;
+}
+.small{
+  font-size:12px;
+  color:var(--muted);
+}
+.pills{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
+.pills div{
+  padding:6px 10px;
+  border:1px solid #e6eef0;
+  border-radius:8px;
+  background:#fff;
+  font-weight:700;
+}
+@media print{
+  body{background:#fff}
+  .no-print{display:none!important}
+  #printWrap{border:none;box-shadow:none;margin:0;border-radius:0}
+  .app{max-width:100%;margin:0;padding:0}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="card">
+    <div class="hero">
+      <h1>Sunil Chandra Billing</h1>
+      <div class="sub">श्री बालाजी एग्री वर्क · भोथिया, जैजैपुर, सक्ती – 495690, छत्तीसगढ़</div>
+      <div class="sub">सुनील चंद्रा – 9399138416 | गोविंद चंद्रा – 9755297803</div>
+    </div>
+    <div class="content">
+      <label>ग्राहक का नाम</label>
+      <input id="custName" placeholder="ग्राहक का नाम">
+      <label>ग्राहक का मोबाइल नंबर</label>
+      <input id="custPhone" placeholder="मोबाइल नंबर">
+      <label>ग्राहक का पता</label>
+      <textarea id="custAddr" rows="2" placeholder="पता"></textarea>
+      <label>घंटे का भाव (₹ प्रति घंटा)</label>
+      <input id="rate" type="number" step="0.01" value="500
+<div class="half">
+          <label>कितने बजे तक</label>
+          <div class="time">
+            <input id="eh" type="number" min="1" max="12" value="1"><span>:</span>
+            <input id="em" type="number" min="0" max="59" value="00">
+            <select id="eapm"><option>AM</option><option selected>PM</option></select>
+          </div>
+        </div>
+      </div>
+      <button class="btn" onclick="calc()">कैल्कुलेट करें</button>
+      <button class="btn ghost" onclick="resetForm()">क्लियर</button>
+      <div class="result" id="res">कुल राशि: ₹0.00 — (कुल समय: 0 घंटा 0 मिनट)</div>
+      <div id="printWrap">
+        <div class="print-inner">
+          <div class="inv-title">श्री बालाजी एग्री वर्क</div>
+          <div class="small" style="text-align:center">भोथिया, जैजैपुर, सक्ती – 495690, छत्तीसगढ़</div>
+          <div class="small" style="text-align:center">सुनील चंद्रा – 9399138416 | गोविंद चंद्रा – 9755297803</div>
+          <div style="display:flex;justify-content:space-between;margin-top:8px;gap:10px;flex-wrap:wrap">
+            <div style="flex:1;min-width:220px">
+              <div>तारीख: <span id="d">--</span></div>
+              <div>ग्राहक: <span id="n">--</span></div>
+              <div>मोबाइल: <span id="p">--</span></div>
+              <div>पता: <span id="a">--</span></div>
+            </div>
+            <div style="text-align:right;min-width:180px">
+              <div>समय: <span id="t">--</span></div>
+              <div>दर: ₹<span id="r">0</span></div>
+            </div>
+          </div>
+          <div style="margin-top:8px">कुल समय: <b id="dur">--</b> | कुल राशि: <b id="tot">₹0.00</b></div>
+          <div class="pills"><div>PhonePe</div><div>Google Pay</div><div>Paytm</div></div>
+          <div style="text-align:center;color:#0f9d58;margin-top:8px;font-weight:800">धन्यवाद! पुनः सेवा का अवसर दें।</div>
+        </div>
+      </div>
+      <div class="no-print">
+        <button class="btn" onclick="window.print()">PDF के लिए Print (Save as PDF
+<script>
+function pad(n){return n.toString().padStart(2,'0');}
+function to24(h,ap){
+  h=parseInt(h||'0',10);
+  if(ap==='AM'){return h===12?0:h;}
+  return h===12?12:h+12;
+}
+function calc(){
+  const name=document.getElementById('custName').value||'—';
+  const phone=document.getElementById('custPhone').value||'—';
+  const addr=document.getElementById('custAddr').value||'—';
+  const rate=parseFloat(document.getElementById('rate').value||'0')||0;
+  const sh=document.getElementById('sh').value||'0';
+  const sm=document.getElementById('sm').value||'0';
+  const sapm=document.getElementById('sapm').value;
+  const eh=document.getElementById('eh').value||'0';
+  const em=document.getElementById('em').value||'0';
+  const eapm=document.getElementById('eapm').value;
+  const s24=to24(sh,sapm), e24=to24(eh,eapm);
+  let sMin=s24*60+parseInt(sm||'0',10);
+  let eMin=e24*60+parseInt(em||'0',10);
+  if(eMin<=sMin) eMin+=24*60;
+  const diff=eMin-sMin;
+  const h=Math.floor(diff/60), m=diff%60;
+  const total=rate*(diff/60);
+  document.getElementById('res').innerText=`कुल राशि: ₹${total.toFixed(2)} — (कुल समय: ${h} घंटा ${m} मिनट)`;
+  document.getElementById('d').innerText=new Date().toLocaleDateString('hi-IN',{day:'2-digit',month:'short',year:'numeric'});
+  document.getElementById('n').innerText=name;
+  document.getElementById('p').innerText=phone;
+  document.getElementById('a').innerText=addr;
+  document.getElementById('t').innerText=`${pad(sh)}:${pad(sm)} ${sapm} – ${pad(eh)}:${pad(em)} ${eapm}`;
+  document.getElementById('r').innerText=rate.toFixed(2);
+  document.getElementById('dur').innerText=`${h} घंटा ${m} मिनट`;
+  document.getElementById('tot').innerText=`₹${total.toFixed(2)}`;
+}
+function resetForm(){
+  ['custName','custPhone','custAddr'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('rate').value='500';
+  document.getElementById('sh').value='9';
+  document.getElementById('sm').value='00';
+  document.getElementById('sapm').value='AM';
+  document.getElementById('eh').value='1';
+  document.getElementById('em').value='00';
+  document.getElementById('eapm').value='PM';
+  document.getElementById('res').innerText='कुल राशि: ₹0.00 — (कुल समय: 0 घंटा 0 मिनट)';
+}
+function shareWA(){
+  calc();
+  const txt=[
+    'श्री बालाजी एग्री वर्क',
+    'भोथिया, जैजैपुर, सक्ती – 495690, छत्तीसगढ़',
+    'सुनील चंद्रा – 9399138416 | गोविंद चंद्रा – 9755297803',
+    '--------------------------------------------',
+    'तारीख: ' + document.getElementById('d').innerText,
+    'ग्राहक: ' + document.getElementById('n').innerText,
+    'मोबाइल: ' + document.getElementById('p').innerText,
+    'पता: ' + document.getElementById('a').innerText,
+    'समय: ' + document.getElementById('t').innerText,
+    'कुल समय: ' + document.getElementById('dur').innerText,
+    'कुल राशि: ' + document.getElementById('tot').innerText,
+    '--------------------------------------------',
+    'नमस्कार! यह आपका श्री बालाजी एग्री वर्क का बिल है। धन्यवाद!'
+  ].join('\n');
+  const phone=(document.getElementById('custPhone').value||'').replace(/\D/g,'');
+  const url='https://wa.me/' + (phone.length>=10?phone:'') + '?text=' + encodeURIComponent(txt);
+  window.location.href=url;
+}
+// Auto-calc when fields change
+['custName','custPhone','custAddr','rate','sh','sm','sapm','eh','em','eapm'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',calc);
+});
+// Register Service Worker for offline PWA
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js');
+}
+calc();
+</script>
+</body>
+</html>
